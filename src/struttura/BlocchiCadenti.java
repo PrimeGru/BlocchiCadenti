@@ -314,7 +314,7 @@ public class BlocchiCadenti implements ActionListener {
 
         public LoginPanel(ActionListener loginAction, ActionListener showRegisterAction) {
             setLayout(new GridBagLayout());
-            setBackground(new Color(0, 0, 0, 150)); // Sfondo semi-trasparente
+            setBackground(new Color(10, 10, 10, 255)); // Sfondo
             setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40)); // Padding
 
             GridBagConstraints gbc = new GridBagConstraints();

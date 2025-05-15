@@ -25,7 +25,7 @@ class SelezioneLivello extends JPanel implements ActionListener {
 
     public SelezioneLivello(ActionListener levelSelectAction) {
         setLayout(new GridBagLayout()); // Cambiato in GridBagLayout per maggiore controllo
-        setBackground(new Color(0, 0, 0, 150)); // Sfondo semi-trasparente
+        setBackground(new Color(10, 10, 10, 255)); // Sfondo semi-trasparente
         setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -88,9 +88,9 @@ class SelezioneLivello extends JPanel implements ActionListener {
         bottoneConferma.setFont(BlocchiCadenti.BUTTON_FONT); // Modifica qui
         bottoneConferma.setBackground(new Color(0, 128, 128)); // Teal
         bottoneConferma.setForeground(Color.WHITE);
-        bottoneConferma.addActionListener(this);
         bottoneConferma.setActionCommand("LEVEL_SELECTED");
         bottoneConferma.addActionListener(levelSelectAction); // Usa l'action listener passato
+        bottoneConferma.addActionListener(this);
         gbc.anchor = GridBagConstraints.CENTER; // Centra il bottone
         add(bottoneConferma, gbc);
     }

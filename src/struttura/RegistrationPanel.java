@@ -21,7 +21,7 @@ import java.awt.event.ActionListener;
 
         public RegistrationPanel(ActionListener registerAction, ActionListener showLoginAction) {
             setLayout(new GridBagLayout());
-            setBackground(new Color(0, 0, 0, 150));
+            setBackground(new Color(10, 10, 10, 255));
             setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
             GridBagConstraints gbc = new GridBagConstraints();

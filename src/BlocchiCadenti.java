@@ -542,7 +542,7 @@ public class BlocchiCadenti implements ActionListener {
 
         public SelezioneLivello(ActionListener levelSelectAction) {
             setLayout(new GridBagLayout()); // Cambiato in GridBagLayout per maggiore controllo
-            setBackground(new Color(0, 0, 0, 150)); // Sfondo semi-trasparente
+            setBackground(new Color(20, 20, 20, 255)); // Sfondo semi-trasparente
             setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
             GridBagConstraints gbc = new GridBagConstraints();
