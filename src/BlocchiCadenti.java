@@ -604,10 +604,11 @@ public class BlocchiCadenti implements ActionListener {
             bottoneConferma = new JButton("Conferma");
             bottoneConferma.setFont(BlocchiCadenti.BUTTON_FONT); // Modifica qui
             bottoneConferma.setBackground(new Color(0, 128, 128)); // Teal
+            
             bottoneConferma.setForeground(Color.WHITE);
-            bottoneConferma.addActionListener(this);
             bottoneConferma.setActionCommand("LEVEL_SELECTED");
             bottoneConferma.addActionListener(levelSelectAction); // Usa l'action listener passato
+            bottoneConferma.addActionListener(this);
             gbc.anchor = GridBagConstraints.CENTER; // Centra il bottone
             add(bottoneConferma, gbc);
         }
