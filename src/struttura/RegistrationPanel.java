@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 // import java.util.Map;
 // import java.util.Optional;
 
+// TODO: make this save to a file
+
 // Pannello Registrazione (classe interna)
     class RegistrationPanel extends JPanel {
 

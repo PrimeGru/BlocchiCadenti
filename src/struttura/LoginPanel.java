@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+// TODO: pull registered users file and check login
+
 public class LoginPanel extends JPanel {
 
         // Campi resi accessibili dalla classe esterna se necessario
