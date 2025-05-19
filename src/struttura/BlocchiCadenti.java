@@ -1,5 +1,5 @@
 package struttura;
-import game.Tetris;
+import game.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -232,10 +232,14 @@ public class BlocchiCadenti implements ActionListener {
         statusLabel.setForeground(new Color(0, 180, 0));
         // Qui dovresti avviare il gioco con il livello selezionato
         // Puoi creare una nuova finestra per il gioco, o cambiare il contenuto del frame esistente.
-        JOptionPane.showMessageDialog(window, "Avvio del gioco al livello " + livelloSelezionato + " per l'utente " + loggedInUserNickname + "!", "Inizio Partita", JOptionPane.INFORMATION_MESSAGE);
-        // window.dispose(); //chiude la finestra precedente
+        //JOptionPane.showMessageDialog(window, "Avvio del gioco al livello " + livelloSelezionato + " per l'utente " + loggedInUserNickname + "!", "Inizio Partita", JOptionPane.INFORMATION_MESSAGE);
+        window.dispose(); //chiude la finestra precedente
         // Creare una nuova classe che estende JFrame per visualizzare il gioco.
-        // new FinestraGioco(livelloSelezionato, loggedInUserNickname).setVisible(true);
+        ModularTetris tetris = new ModularTetris();
+        String[] args = new String[2];
+        args[0] = livelloSelezionato;
+        args[1] = loggedInUserNickname;
+        ModularTetris.main(args);
     }
 
     // ============================================================

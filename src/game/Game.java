@@ -1,4 +1,4 @@
-package Java_Programs.src.Tetris;
+package game;
 
 
 import java.awt.*;
@@ -12,7 +12,7 @@ public class Game extends JPanel {
     private int currentPiece;
     private int rotation;
     private ArrayList<Integer> nextPieces = new ArrayList<>();
-    private long score;
+    public int score;
     private Color[][] well;
     private boolean gameOver = false;
 
@@ -113,12 +113,12 @@ public class Game extends JPanel {
                 numClears++;
             }
         }
-        score += switch (numClears) {
-            case 1 -> 100;
-            case 2 -> 300;
-            case 3 -> 500;
-            case 4 -> 800;
-            default -> 0;
+         switch (numClears) {
+            case 1: score += 100; break;
+            case 2: score += 300; break;
+            case 3: score += 500; break;
+            case 4: score += 800; break;
+            default: score += 0; break;
         };
     }
 

@@ -1,4 +1,4 @@
-package Java_Programs.src.Tetris;
+package game;
 
 import java.awt.Color;
 import java.awt.Point;
