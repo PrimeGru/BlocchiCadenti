@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import java.io.*; // Import for file operations
+import java.nio.charset.StandardCharsets; // For consistent character encoding
+import java.security.MessageDigest; // For hashing
+import java.security.NoSuchAlgorithmException; // For hashing exception
+
 // Classe principale che contiene tutto
 public class BlocchiCadenti implements ActionListener {
 
@@ -251,6 +256,7 @@ public class BlocchiCadenti implements ActionListener {
     // Resa statica perché non necessita dello stato dell'istanza di BlocchiCadentiApp
     static class AuthService {
 
+        private static final String USERS_FILE = "users.txt"; // Nome del file
         // Sostituisce la mappa 'users' nel vecchio codice
         private final Map<String, String> registeredUsers = new HashMap<>();
 
@@ -269,16 +275,81 @@ public class BlocchiCadenti implements ActionListener {
 
         // Costruttore (potrebbe caricare utenti da file/db)
         public AuthService() {
-            // Aggiungi utenti di esempio se necessario per test
-            registeredUsers.put("test", "pw");
+            loadUsersFromFile(); // Carica gli utenti all'avvio
+        }
+
+        // Metodo per caricare gli utenti dal file all'avvio dell'applicazione
+        private void loadUsersFromFile() {
+            File file = new File(USERS_FILE);
+            if (!file.exists()) {
+                try {
+                    file.createNewFile(); // Crea il file se non esiste
+                    System.out.println("Created users.txt file.");
+                } catch (IOException e) {
+                    System.err.println("Error creating users.txt: " + e.getMessage());
+                }
+                return; // Se il file non esiste, non ci sono utenti da caricare
+            }
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split(":");
+                    if (parts.length == 2) {
+                        registeredUsers.put(parts[0], parts[1]); // Nickname:HashedPassword
+                    }
+                }
+                System.out.println("Loaded " + registeredUsers.size() + " users from " + USERS_FILE);
+            } catch (IOException e) {
+                System.err.println("Error loading users from file: " + e.getMessage());
+            }
+        }
+
+        // Metodo per scrivere un nuovo utente nel file
+        private void saveUserToFile(String nickname, String hashedPassword) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(USERS_FILE, true))) { // 'true' per appendere
+                writer.write(nickname + ":" + hashedPassword);
+                writer.newLine();
+                System.out.println("Saved user to file: " + nickname);
+            } catch (IOException e) {
+                System.err.println("Error saving user to file: " + e.getMessage());
+            }
+        }
+
+        // Metodo per hashare la password (usando SHA-256)
+        private String hashPassword(String password) {
+            try {
+                MessageDigest digest = MessageDigest.getInstance("SHA-256");
+                byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+                return bytesToHex(encodedhash);
+            } catch (NoSuchAlgorithmException e) {
+                System.err.println("SHA-256 algorithm not found: " + e.getMessage());
+                return null; // Should not happen in modern JVMs
+            }
+        }
+
+        // Helper per convertire un array di byte in stringa esadecimale
+        private String bytesToHex(byte[] hash) {
+            StringBuilder hexString = new StringBuilder(2 * hash.length);
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+            return hexString.toString();
         }
 
         // Tenta di autenticare un utente.
         public LoginResult login(String nickname, String password) {
+            String hashedPassword = hashPassword(password); // Hash della password inserita per il confronto
+
             if (!registeredUsers.containsKey(nickname)) {
                 return LoginResult.USER_NOT_FOUND;
             }
-            if (registeredUsers.get(nickname).equals(password)) {
+            // Confronta la password hashata con quella hashata memorizzata
+            if (registeredUsers.get(nickname).equals(hashedPassword)) {
                 return LoginResult.SUCCESS;
             } else {
                 return LoginResult.INVALID_PASSWORD;
@@ -290,11 +361,19 @@ public class BlocchiCadenti implements ActionListener {
             if (nickname == null || nickname.trim().isEmpty() || password == null || password.isEmpty()) {
                 return RegistrationResult.EMPTY_FIELDS;
             }
-            if (registeredUsers.containsKey(nickname.trim())) { // Trimma anche qui per consistenza
+            String trimmedNickname = nickname.trim();
+            if (registeredUsers.containsKey(trimmedNickname)) {
                 return RegistrationResult.NICKNAME_TAKEN;
             }
-            registeredUsers.put(nickname.trim(), password);
-            System.out.println("Utente registrato: " + nickname.trim()); // Log per debug
+
+            String hashedPassword = hashPassword(password);
+            if (hashedPassword == null) { // Fallback if hashing failed
+                return RegistrationResult.FAILURE;
+            }
+
+            registeredUsers.put(trimmedNickname, hashedPassword); // Aggiungi alla mappa in memoria
+            saveUserToFile(trimmedNickname, hashedPassword); // Salva su file
+            System.out.println("Utente registrato: " + trimmedNickname); // Log per debug
             return RegistrationResult.SUCCESS;
         }
 
