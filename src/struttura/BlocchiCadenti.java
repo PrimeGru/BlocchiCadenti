@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
+import java.util.concurrent.TimeUnit;
 import java.io.*; // Import for file operations
 import java.nio.charset.StandardCharsets; // For consistent character encoding
 import java.security.MessageDigest; // For hashing
@@ -233,18 +233,26 @@ public class BlocchiCadenti implements ActionListener {
 
     private void handleLevelSelection() {
         String livelloSelezionato = selezioneLivelloPanel.getLivelloSelezionato();
-        statusLabel.setText("Livello selezionato: " + livelloSelezionato + ". Preparazione del gioco...");
         statusLabel.setForeground(new Color(0, 180, 0));
         // Qui dovresti avviare il gioco con il livello selezionato
         // Puoi creare una nuova finestra per il gioco, o cambiare il contenuto del frame esistente.
         //JOptionPane.showMessageDialog(window, "Avvio del gioco al livello " + livelloSelezionato + " per l'utente " + loggedInUserNickname + "!", "Inizio Partita", JOptionPane.INFORMATION_MESSAGE);
-        window.dispose(); //chiude la finestra precedente
+        window.setVisible(false); //chiude la finestra precedente
         // Creare una nuova classe che estende JFrame per visualizzare il gioco.
-        ModularTetris tetris = new ModularTetris();
         String[] args = new String[2];
         args[0] = livelloSelezionato;
         args[1] = loggedInUserNickname;
-        ModularTetris.main(args);
+        ModularTetris tetris = new ModularTetris();
+        tetris.run(args);
+        tetris.frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent) {
+                window.setVisible(true);
+            }
+        });
+        
+        
+        return;
     }
 
     // ============================================================

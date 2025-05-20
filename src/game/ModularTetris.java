@@ -3,25 +3,38 @@ package game;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ModularTetris {
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Tetris");
-        String livelloSelezionato = args[0];
-        int delay = 1;
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(12 * 26 + 10, 26 * 23 + 25);
+import struttura.BlocchiCadenti;
 
-        Game game = new Game();
+public class ModularTetris {
+    Game game = new Game();
+    public JFrame frame = new JFrame("Tetris");
+    
+    public void run(String[] args) {
+        
+        String livelloSelezionato = args[0];
+        int delay = handleLevelDifficulty(livelloSelezionato);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(12 * 26, 26 * 24 + 14);
+        frame.setLocationRelativeTo(null);
+
         frame.add(game);
         frame.setVisible(true);
+
+        Timer tmr = new Timer(delay, e -> {
+            if (!game.isGameOver()) {
+                game.dropDown();
+            }
+        });
+        tmr.start();
 
         frame.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (game.isGameOver()) {
-                    if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    if(e.getKeyCode() == KeyEvent.VK_ENTER) {
                         Highscores scores = new Highscores();
                         scores.updateScore(args[1], game.score);
+                        frame.dispose();
                     }
                 }
                 switch (e.getKeyCode()) {
@@ -44,13 +57,7 @@ public class ModularTetris {
             }
         });
 
-        delay = handleLevelDifficulty(livelloSelezionato);
-
-        new Timer(delay, e -> {
-            if (!game.isGameOver()) {
-                game.dropDown();
-            }
-        }).start();
+        return;
     }
 
     static int handleLevelDifficulty(String livelloSelezionato) {
