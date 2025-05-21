@@ -8,11 +8,13 @@ import struttura.BlocchiCadenti;
 public class ModularTetris {
     Game game = new Game();
     public JFrame frame = new JFrame("Tetris");
+    private Timer tmr;
+    private int delay;
     
     public void run(String[] args) {
         
         String livelloSelezionato = args[0];
-        int delay = handleLevelDifficulty(livelloSelezionato);
+        delay = handleLevelDifficulty(livelloSelezionato);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(12 * 26, 26 * 24 + 14);
         frame.setLocationRelativeTo(null);
@@ -20,9 +22,11 @@ public class ModularTetris {
         frame.add(game);
         frame.setVisible(true);
 
-        Timer tmr = new Timer(delay, e -> {
+        
+        tmr = new Timer(delay, e -> {
             if (!game.isGameOver()) {
                 game.dropDown();
+                updateSpeed();
             }
         });
         tmr.start();
@@ -60,7 +64,7 @@ public class ModularTetris {
         return;
     }
 
-    static int handleLevelDifficulty(String livelloSelezionato) {
+    int handleLevelDifficulty(String livelloSelezionato) {
         if(livelloSelezionato == "Facile") {
             return 1000;
         }
@@ -77,5 +81,10 @@ public class ModularTetris {
             return 75;
         }
         else return 1;
+    }
+
+    void updateSpeed() {
+        tmr.setDelay(delay - (game.score / 500) * 10);
+        System.out.println(tmr.getDelay());
     }
 }
