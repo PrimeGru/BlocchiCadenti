@@ -130,18 +130,4 @@ public class MusicaInLoop {
         }
     }
 
-    public static void main(String[] args) {
-        // Specifica i percorsi dei file audio per la playlist
-        List<String> gameSoundtracks = new ArrayList<>();
-        gameSoundtracks.add("path/to/your/music/file/music1.wav"); // Modifica i percorsi
-        gameSoundtracks.add("path/to/your/music/file/music2.wav");
-        gameSoundtracks.add("path/to/your/music/file/music3.wav");
-        // Aggiungi tutti i brani che desideri
-
-        // *** Per testare senza audio, decommenta la riga seguente: ***
-        setTestingMode(true);
-
-        // Avvia la riproduzione della playlist
-        avviaRiproduzionePlaylist(gameSoundtracks);
-    }
 }

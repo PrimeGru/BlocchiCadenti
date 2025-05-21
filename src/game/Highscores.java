@@ -84,17 +84,4 @@ public class Highscores {
         }
     }
 
-    // The displayHighscores method has been removed as requested.
-
-    public static void main(String[] args) {
-        Highscores gameHighscores = new Highscores();
-
-        // Example Usage:
-        gameHighscores.updateScore("Player1", 100);
-        gameHighscores.updateScore("Player2", 150);
-        gameHighscores.updateScore("Player1", 120); // This should update Player1's score
-        gameHighscores.updateScore("Player3", 80);
-        gameHighscores.updateScore("Player2", 130); // This should not update Player2's score
-        gameHighscores.updateScore("Player4", 200); // Add a new player
-    }
 }

@@ -111,7 +111,7 @@ public class Game extends JPanel {
                 deleteRow(j);
                 j++;
                 numClears++;
-            }
+            } 
         }
          switch (numClears) {
             case 1: score += 100; break;
@@ -142,8 +142,14 @@ public class Game extends JPanel {
         g.setColor(Color.WHITE);
         g.drawString("Score: " + score, 19 * 12, 25);
         if (gameOver) {
+            Font currentFont = g.getFont();
+            g.setFont(new Font("SansSerif", Font.PLAIN, 20));
             g.setColor(Color.RED);
             g.drawString("GAME OVER", 100, 200);
+            g.drawString("Premi Invio", 105, 225);
+            g.drawString("per continuare", 90, 250);
+            g.setFont(currentFont);
+            
         }
         drawPiece(g);
     }
