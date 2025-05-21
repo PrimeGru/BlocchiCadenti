@@ -239,9 +239,9 @@ package game;
          g.drawString("Score: " + score, sidebarX, BLOCK_SIZE + (BLOCK_SIZE/2));
          g.drawString("Level: " + currentScoreLevel, sidebarX, BLOCK_SIZE * 2 + (BLOCK_SIZE/2));
          g.setFont(new Font("SansSerif", Font.BOLD, 16));
-         g.drawString("Next:", sidebarX, BLOCK_SIZE * 3 + (BLOCK_SIZE / 2));
+         g.drawString("Next:", sidebarX, BLOCK_SIZE * 5 + (BLOCK_SIZE / 2));
 
-         int nextPieceY = BLOCK_SIZE * 4;
+         int nextPieceY = BLOCK_SIZE * 7;
          for (int k = 0; k < Math.min(NEXT_PIECES_QUEUE_SIZE, nextPieces.size()); k++) {
              int pieceId = nextPieces.get(k);
              Color nextPieceColor = Tetramino.COLORS[pieceId]; // Uses potentially shuffled colors
