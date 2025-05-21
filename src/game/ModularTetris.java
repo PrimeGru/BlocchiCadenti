@@ -3,8 +3,6 @@ package game;
 import java.awt.event.*;
 import javax.swing.*;
 
-import struttura.BlocchiCadenti;
-
 public class ModularTetris {
     Game game = new Game();
     public JFrame frame = new JFrame("Tetris");
