@@ -84,7 +84,6 @@ public class ModularTetris {
     }
 
     void updateSpeed() {
-        tmr.setDelay(delay - (game.score / 500) * 10);
-        System.out.println(tmr.getDelay());
+        tmr.setDelay(Math.max(10, delay - (game.score / 500) * 10));
     }
 }
