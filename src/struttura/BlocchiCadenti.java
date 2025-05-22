@@ -1,5 +1,5 @@
 package struttura;
-import game.*;
+import game.main.Tetris;
 
 import javax.swing.*;
 import java.awt.*;
@@ -241,7 +241,7 @@ public class BlocchiCadenti implements ActionListener {
         String[] args = new String[2];
         args[0] = livelloSelezionato;
         args[1] = loggedInUserNickname;
-        ModularTetris tetris = new ModularTetris();
+        Tetris tetris = new Tetris();
         tetris.run(args);
         tetris.frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
