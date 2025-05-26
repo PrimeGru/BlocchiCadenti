@@ -8,6 +8,7 @@ import game.config.GameConstants; // For window sizing
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import game.config.GameConstants;
 
 public class Tetris {
     private GamePanel gamePanel; // Changed from Game to GamePanel
@@ -111,7 +112,7 @@ public class Tetris {
 
     private void updateGameSpeed() {
         // Speed up based on score. Ensure delay doesn't become too small.
-        int scoreBasedReduction = (gameController.getScoreManager().getScore() / 500) * 10;
+        int scoreBasedReduction = (gameController.getScoreManager().getScore() / GameConstants.SCORE_PER_LEVEL_UP) * 100;
         timer.setDelay(Math.max(50, initialDelay - scoreBasedReduction)); // Minimum delay of 50ms
     }
 
