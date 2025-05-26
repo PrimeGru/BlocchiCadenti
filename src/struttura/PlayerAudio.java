@@ -11,6 +11,8 @@ public class PlayerAudio {
     private static boolean testingMode = false;
     private static String suonoBloccoPath = "";
     private static String suonoLineaCompletaPath = "";
+    private static String suonoInizioLivelloPath = "";
+    private static String suonoGameOverPath = "";
 
     public static void setTestingMode(boolean testing) {
         testingMode = testing;
@@ -22,6 +24,14 @@ public class PlayerAudio {
 
     public static void setSuonoLineaCompleta(String filePath) {
         suonoLineaCompletaPath = filePath;
+    }
+
+    public static void setSuonoInizioLivello(String filePath) {
+        suonoInizioLivelloPath = filePath;
+    }
+
+    public static void setSuonoGameOver(String filePath) {
+        suonoGameOverPath = filePath;
     }
 
     public static void riproduciMusicaInLoop(String filePath) {
@@ -39,7 +49,7 @@ public class PlayerAudio {
 
             while (true) {
                 try {
-                    Thread.sleep(1000); // Pausa per non consumare CPU inutilmente
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     System.err.println("Interruzione del thread di riproduzione.");
@@ -104,36 +114,42 @@ public class PlayerAudio {
         riproduciSuonoEffetto(suonoLineaCompletaPath);
     }
 
-    public static void main(String[] args) {
-        // Specifica il percorso del file audio
-        String filePath = "path/to/your/music/file/music.wav"; // Modifica il percorso in base al tuo file
+    public static void suonoInizioLivello() {
+        riproduciSuonoEffetto(suonoInizioLivelloPath);
+    }
 
-        // Specifica i percorsi dei file audio per la playlist
+    public static void suonoGameOver() {
+        riproduciSuonoEffetto(suonoGameOverPath);
+    }
+
+    public static void main(String[] args) {
+        String filePath = "path/to/your/music/file/music.wav";
+
         List<String> gameSoundtracks = new ArrayList<>();
         gameSoundtracks.add("path/to/your/music/file/music1.wav");
         gameSoundtracks.add("path/to/your/music/file/music2.wav");
         gameSoundtracks.add("path/to/your/music/file/music3.wav");
-        // Aggiungi tutti i brani che desideri
 
-        // Imposta i suoni personalizzati
         setSuonoBlocco("path/to/your/sound/effect/hit.wav");
         setSuonoLineaCompleta("path/to/your/sound/effect/line_clear.wav");
+        setSuonoInizioLivello("path/to/your/sound/effect/level_start.wav");
+        setSuonoGameOver("path/to/your/sound/effect/game_over.wav");
 
-        // *** Per testare senza audio, abilita la modalità di test: ***
         setTestingMode(true);
 
-        // Avvia la riproduzione della musica
         riproduciMusicaInLoop(filePath);
-
-        // Avvia la riproduzione della playlist
         avviaRiproduzionePlaylist(gameSoundtracks);
 
-        // Simula un evento dove un blocco tocca terra
+        System.out.println("Simulazione evento: inizio livello");
+        suonoInizioLivello();
+
         System.out.println("Simulazione evento: blocco tocca il terreno");
         suonoBloccoToccato();
 
-        // Simula un evento di linea completata
         System.out.println("Simulazione evento: linea completata");
         suonoLineaCompletata();
+
+        System.out.println("Simulazione evento: game over");
+        suonoGameOver();
     }
 }
