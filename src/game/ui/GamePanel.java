@@ -7,7 +7,6 @@ import java.awt.Graphics;
 import game.config.GameConstants; // For panel preferred size
 
 public class GamePanel extends JPanel {
-    private static final long serialVersionUID = 1L; // Keep a serialVersionUID
 
     private final GameController gameController;
     private final GameRenderer gameRenderer;
