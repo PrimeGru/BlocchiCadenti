@@ -1,0 +1,26 @@
+src
+├── game
+│   ├── config
+│   │   └── GameConstants.java
+│   ├── core
+│   │   ├── ActivePiece.java
+│   │   ├── GameController.java
+│   │   ├── PieceQueue.java
+│   │   ├── ScoreManager.java
+│   │   └── Well.java
+│   ├── main
+│   │   └── Tetris.java
+│   ├── model
+│   │   ├── Highscores.java
+│   │   └── Tetramino.java
+│   └── ui
+│       ├── GamePanel.java
+│       └── GameRenderer.java
+└── struttura
+    ├── BlocchiCadenti.java
+    ├── LoginPanel.java
+    ├── MusicaInLoop.java
+    ├── Music.java
+    ├── PlayerAudio.java
+    ├── RegistrationPanel.java
+    └── SelezioneLivello.java
