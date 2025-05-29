@@ -37,7 +37,6 @@ public class PlayerAudio {
     public static void riproduciMusicaInLoop(String filePath) {
         if (testingMode) {
             System.out.println("[TEST MODE] Simulazione della riproduzione in loop del file: " + filePath);
-            return;
         }
 
         try {
